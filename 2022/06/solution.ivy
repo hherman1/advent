@@ -1,14 +1,12 @@
-op allneq a =
-	b = a o.== a
-	uniqs = 0 == +/ 1 3 2 transp not 1 == +/ b
-	d=(rho uniqs)[1]
-	+/ uniqs & (iota d) o.== iota d
+op n adj x =
+	(n == 1) : x
+	x + (n - 1) adj 1 rot x
 
-op n win a =
-	s = -1 + iota 1 + (rho a) - n
-	transp a[(iota n) o.+ s]
+op n stripe x = x * n adj (iota (rho x)[2]) o.== iota (rho x)[2]
 
-op n mark a = 1 take (n - 1) + (allneq n win a) sel iota (rho a) - (n - 1)
+op n mark x =
+	starts = n == +/ transp n stripe n adj x o.== x
+	(n - 1) + 1 take starts sel iota rho x
 
 x = 'mjqjpqmgbljsphdztnvjfqwrcgsmlb'
 
