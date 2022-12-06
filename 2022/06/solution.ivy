@@ -1,0 +1,31 @@
+op allneq a =
+	b = a o.== a
+	uniqs = 0 == +/ 1 3 2 transp not 1 == +/ b
+	d=(rho uniqs)[1]
+	+/ uniqs & (iota d) o.== iota d
+
+op n win a =
+	s = -1 + iota 1 + (rho a) - n
+	transp a[(iota n) o.+ s]
+
+op n mark a = 1 take (n - 1) + (allneq n win a) sel iota (rho a) - (n - 1)
+
+x = 'mjqjpqmgbljsphdztnvjfqwrcgsmlb'
+
+'sample start packet is'
+
+4 mark x
+
+'sample message marker is'
+
+14 mark x
+
+) get "input.ivy"
+
+'input start packet is'
+
+4 mark input
+
+'input message marker is'
+
+14 mark input
